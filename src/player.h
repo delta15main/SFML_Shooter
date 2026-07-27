@@ -1,20 +1,21 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include "hit.h"
 
-namespace player {
+namespace plr {
     class Player : public Collidable {
         private:
             sf::Sprite sprite;
-            float radius;
+            float radius, velocity;
             sf::Vector2f center;
+            sf::Vector2i direction;
+            int health;
         public:
-            Player(sf::Texture& texture, sf::FloatRect& rect) : Collidable(), sprite(texture) {
-                radius = rect.size.y / 2.f;
-                center = {rect.position.x, rect.position.y};
-            }
-            Hitbox getHitbox() const override {
-                return Hitbox::makeCircle(center, radius);
-            }
-    };
+            Player(sf::Texture& texture);
+            Hitbox getHitbox() const override;
+            void draw(sf::RenderWindow& win) const;
+            void setDirection(sf::Vector2i dir);
+            void move();
+};
 }
