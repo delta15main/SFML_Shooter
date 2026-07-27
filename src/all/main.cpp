@@ -1,18 +1,22 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/WindowEnums.hpp>
+#include <algorithm>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <vector>
 
-#include "hit.h"
-#include "player.h"
+#include "../player/player.h"
+#include "../bullet/bullet.h"
 
 int main () {
 
     sf::RenderWindow window(sf::VideoMode({1000, 1000}), "SFML_Shooter", sf::Style::Close);
-    sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile("../asset/player.png")) {return 0;}
+    sf::Texture playerTexture, bulletTexture;
+    if (!playerTexture.loadFromFile("../../asset/player.png")) {return 0;}
+    if (!bulletTexture.loadFromFile("../../asset/body.png")) {return 0;}
     plr::Player player(playerTexture);
+    std::vector<std::unique_ptr<blt::Bullet>> bullets;
 
     sf::Clock moveClock;
     float moveInterval = 0.1f;

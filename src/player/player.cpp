@@ -1,15 +1,15 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Rect.hpp>
 #include "player.h"
-#include "hit.h"
 
 namespace plr {
-    Player::Player(sf::Texture& texture) : Collidable(), sprite(texture), health(100), velocity(10.f), direction({0, 0}) {
+    Player::Player(sf::Texture& texture) : Collidable(), sprite(texture), health(100), velocity(20.f), direction({0, 0}) {
     sf::FloatRect rect = sprite.getGlobalBounds();
+    sprite.setOrigin({25.f, 25.f});
+    sprite.setPosition({100.f, 100.f});        
     radius = rect.size.y / 2.f;
     center = {rect.position.x, rect.position.y};
-    sprite.setOrigin({25.f, 25.f});
-    sprite.setPosition({100.f, 100.f});
+
+
 }
 Hitbox Player::getHitbox() const {
     return Hitbox::makeCircle(center, radius);
@@ -21,7 +21,7 @@ void Player::setDirection(sf::Vector2i dir) {
     direction = dir;
 }
 void Player::move(const sf::Vector2u& winSize) {
-    if (direction.x == 0 && direction.y == 0) {
+    if ((direction.x == 0 && direction.y == 0) || health <= 0) {
         return;
     }
     
@@ -31,7 +31,7 @@ void Player::move(const sf::Vector2u& winSize) {
     
     // Границы (отступ 10 пикселей)
     float left = 10.f;
-    float right = static_cast<float>(winSize.x) - 10.f;
+    float right = static_cast<float>(winSize.x / 2) - 10.f;
     float top = 10.f;
     float bottom = static_cast<float>(winSize.y) - 10.f;
     
@@ -50,6 +50,12 @@ void Player::move(const sf::Vector2u& winSize) {
     }
     
     sprite.setPosition({newX, newY});
+}
+sf::Vector2f Player::getPosition() const {
+    sf::Vector2f vec;
+    if (health>0) { vec = sprite.getPosition(); }
+    else { vec = {0.f, 0.f}; }
+    return vec;
 }
 }
 

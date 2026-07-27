@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Rect.hpp>
-#include "hit.h"
+#include "../all/hitbox.h"
 
 namespace plr {
     class Player : public Collidable {
@@ -17,5 +16,6 @@ namespace plr {
             void draw(sf::RenderWindow& win) const;
             void setDirection(sf::Vector2i dir);
             void move(const sf::Vector2u& winSize);
+            sf::Vector2f getPosition() const;
 };
 }
