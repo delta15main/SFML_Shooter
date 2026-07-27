@@ -2,7 +2,7 @@
 #include "player.h"
 
 namespace plr {
-    Player::Player(sf::Texture& texture) : Collidable(), sprite(texture), health(100), velocity(20.f), direction({0, 0}) {
+    Player::Player(sf::Texture& texture) : Collidable(), sprite(texture), health(100), velocity(0.3f), direction({0, 0}) {
     sf::FloatRect rect = sprite.getGlobalBounds();
     sprite.setOrigin({25.f, 25.f});
     sprite.setPosition({100.f, 100.f});        
@@ -50,6 +50,9 @@ void Player::move(const sf::Vector2u& winSize) {
     }
     
     sprite.setPosition({newX, newY});
+    sf::FloatRect rect = sprite.getGlobalBounds();  
+    radius = rect.size.y / 2.f;
+    center = {rect.position.x, rect.position.y};
 }
 sf::Vector2f Player::getPosition() const {
     sf::Vector2f vec;

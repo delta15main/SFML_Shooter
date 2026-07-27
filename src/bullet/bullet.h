@@ -18,6 +18,8 @@ public:
     Hitbox getHitbox() const override;
     void draw(sf::RenderWindow& win);
     void move(const sf::Vector2u& winSize);
+    bool is_alive();
+    void setAlive(bool A, const sf::Vector2f& pos);
 };
 
 
