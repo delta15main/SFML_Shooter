@@ -16,6 +16,6 @@ namespace plr {
             Hitbox getHitbox() const override;
             void draw(sf::RenderWindow& win) const;
             void setDirection(sf::Vector2i dir);
-            void move();
+            void move(const sf::Vector2u& winSize);
 };
 }
