@@ -30,13 +30,13 @@ int main () {
     uint bullet;
 
     // Error
-    if (!playerTexture.loadFromFile("asset/player.png")) {return 0;}
-    if (!bulletTexture.loadFromFile("asset/body.png")) {return 0;}
-    if (!enemyTexture.loadFromFile("asset/head.png")) {return 0;}
+    if (!playerTexture.loadFromFile("asset/samsalet.png")) {return 0;}
+    if (!bulletTexture.loadFromFile("asset/pistol.png")) {return 0;}
+    if (!enemyTexture.loadFromFile("asset/steroid.png")) {return 0;}
     
     // Inicial
     plr::Player player(playerTexture);
-    for (int i = 0; i < 10; ++i) { bullets.push_back(std::move(std::make_unique<blt::Bullet>(bulletTexture, player))); }   
+    for (int i = 0; i < 20; ++i) { bullets.push_back(std::move(std::make_unique<blt::Bullet>(bulletTexture, player))); }   
     for (int i = 0; i < 4; ++i) { enemies.push_back(std::move(std::make_unique<enm::Enemy>(enemyTexture, fontJet))); }
     float moveInterval = 0.3f;
     float shootInterval = 0.1f;
