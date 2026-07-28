@@ -60,5 +60,8 @@ sf::Vector2f Player::getPosition() const {
     else { vec = {0.f, 0.f}; }
     return vec;
 }
+std::string Player::getHealth() {
+    return std::to_string(health);
+}
 }
 

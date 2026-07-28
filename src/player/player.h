@@ -17,5 +17,6 @@ namespace plr {
             void setDirection(sf::Vector2i dir);
             void move(const sf::Vector2u& winSize);
             sf::Vector2f getPosition() const;
+            std::string getHealth() ;
 };
 }
