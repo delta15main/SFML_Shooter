@@ -13,7 +13,7 @@ Bullet::Bullet(sf::Texture& texture, const plr::Player& player) :
             sprite.setPosition(player.getPosition());
             sf::FloatRect rect = sprite.getGlobalBounds();
             radius = rect.size.y / 2;
-            center = {rect.position.x, rect.position.y};
+            center = {rect.position.x + rect.size.x / 2.f, rect.position.y + rect.size.y / 2.f};
         }
 Hitbox Bullet::getHitbox() const {
         return Hitbox::makeCircle(center, radius);
@@ -24,11 +24,9 @@ void Bullet::draw(sf::RenderWindow& win) {
 void Bullet::move(const sf::Vector2u& winSize) {
     if (!isAlive) { return; }
     
-    // Двигаем пулю в направлении
     sf::Vector2f pos = sprite.getPosition();
     pos.x += direction.x * velocity;
     
-    // Проверка границ (если вылетела за экран - деактивируем)
     if (pos.x > winSize.x) {
         isAlive = false;
         return;
@@ -36,10 +34,9 @@ void Bullet::move(const sf::Vector2u& winSize) {
     
     sprite.setPosition(pos);
     
-    // Обновляем hitbox
     sf::FloatRect rect = sprite.getGlobalBounds();
-    radius = rect.size.y / 2.f;
-    center = rect.position + sf::Vector2f(radius, radius);
+    radius = rect.size.y / 2;
+    center = {rect.position.x + rect.size.x / 2.f, rect.position.y + rect.size.y / 2.f};
 }
 bool Bullet::is_alive() {
     return isAlive;
@@ -47,7 +44,12 @@ bool Bullet::is_alive() {
 
 void Bullet::setAlive(bool A, const sf::Vector2f& pos) {
     isAlive = A;
+    if (A) {
     sprite.setPosition(pos);
+    sf::FloatRect rect = sprite.getGlobalBounds();
+    radius = rect.size.y / 2;
+    center = {rect.position.x + rect.size.x / 2.f, rect.position.y + rect.size.y / 2.f};
+    }
 }
 
 }   

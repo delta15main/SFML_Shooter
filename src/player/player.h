@@ -9,7 +9,7 @@ namespace plr {
             float radius, velocity;
             sf::Vector2f center;
             sf::Vector2i direction;
-            int health;
+            int health, score;
         public:
             Player(sf::Texture& texture);
             Hitbox getHitbox() const override;
@@ -18,5 +18,8 @@ namespace plr {
             void move(const sf::Vector2u& winSize);
             sf::Vector2f getPosition() const;
             std::string getHealth() ;
+            std::string getScore();
+            void setHealth(int x);
+            void setScore(int x);
 };
 }
